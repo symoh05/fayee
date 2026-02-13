@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📄 read-me.html · Fayee's Birthday</title>
+    <!-- Prism.js for dark theme, editor-style highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0c0f;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            color: #e3e6eb;
+            line-height: 1.6;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .editor-container {
+            max-width: 1200px;
+            width: 100%;
+            background: #0d1117;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px #2d3a4a;
+            overflow: hidden;
+            border: 1px solid #3e4a5a;
+        }
+
+        .editor-header {
+            background: #161b22;
+            padding: 1rem 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #2d3a4a;
+            flex-wrap: wrap;
+        }
+
+        .file-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #0d1117;
+            padding: 6px 18px;
+            border-radius: 30px;
+            border: 1px solid #3e5a7a;
+            color: #ffd7a0;
+            font-weight: 500;
+        }
+
+        .file-badge i {
+            color: #79c0ff;
+            font-size: 1.2rem;
+        }
+
+        .editor-tabs {
+            display: flex;
+            gap: 6px;
+            background: #1e242c;
+            border-radius: 12px;
+            padding: 4px;
+        }
+
+        .tab {
+            padding: 6px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            background: transparent;
+            color: #b1bac4;
+        }
+
+        .tab.active {
+            background: #2d3a4a;
+            color: white;
+        }
+
+        .window-controls {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+            color: #6e7681;
+        }
+
+        .code-area {
+            background: #0d1117;
+            padding: 1.8rem 1.5rem;
+            overflow-x: auto;
+            max-height: 70vh;
+            overflow-y: auto;
+            border-bottom: 1px solid #2d3a4a;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        pre[class*="language-"] {
+            background: transparent !important;
+            margin: 0;
+            padding: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            border: none;
+            box-shadow: none;
+        }
+
+        code[class*="language-"] {
+            background: transparent;
+            text-shadow: none;
+            color: #e3e6eb;
+        }
+
+        .code-area::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        .code-area::-webkit-scrollbar-track {
+            background: #161b22;
+        }
+        .code-area::-webkit-scrollbar-thumb {
+            background: #3e5a7a;
+            border-radius: 10px;
+        }
+
+        .run-section {
+            background: #0d1117;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid #2d3a4a;
+            gap: 20px;
+        }
+
+        .run-button {
+            background: linear-gradient(145deg, #238636, #2ea043);
+            border: none;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 600;
+            padding: 1.2rem 3.5rem;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 10px 25px rgba(46, 160, 67, 0.4);
+            transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+        }
+
+        .run-button:hover {
+            background: linear-gradient(145deg, #2ea043, #3fb950);
+            transform: scale(1.02);
+            box-shadow: 0 16px 30px rgba(46, 160, 67, 0.6);
+        }
+
+        .run-button:active {
+            transform: scale(0.98);
+        }
+
+        .run-button i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .run-hint {
+            color: #b1bac4;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            border-top: 1px dashed #3e5a7a;
+            padding-top: 20px;
+            width: 80%;
+            text-align: center;
+        }
+
+        .run-hint span {
+            background: #1e293b;
+            padding: 4px 12px;
+            border-radius: 30px;
+            color: #ffb6c1;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.8rem;
+            background: #0a0c10;
+            color: #8b949e;
+            border-bottom: 1px solid #2d3a4a;
+            font-size: 0.85rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #3e5a7a;
+            border-top-color: #ffd700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .run-button { font-size: 1.3rem; padding: 1rem 2rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="editor-container">
+        <!-- EDITOR HEADER – clean, developer vibe -->
+        <div class="editor-header">
+            <div class="file-badge">
+                <i class="fa-regular fa-file-code"></i>
+                <span>index.html</span>
+                <span style="color: #8b949e; margin-left: 6px;">/ Fayee's birthday · live</span>
+            </div>
+            <div class="editor-tabs">
+                <span class="tab active">index.html</span>
+                <span class="tab">style.css</span>
+                <span class="tab">script.js</span>
+            </div>
+            <div class="window-controls">
+                <i class="fa-regular fa-minus"></i>
+                <i class="fa-regular fa-square"></i>
+                <i class="fa-regular fa-xmark"></i>
+            </div>
+        </div>
+
+        <!-- STATUS BAR – shows live source -->
+        <div class="status-bar">
+            <div class="status-item">
+                <i class="fa-regular fa-circle-check" style="color: #7ee787;"></i>
+                <span>Live preview · reading from GitHub</span>
+            </div>
+            <div class="status-item">
+                <span id="sourceIndicator">symoh05.github.io/fayee/</span>
+                <i class="fa-regular fa-clipboard" style="cursor: pointer;" id="copyUrlBtn" title="copy url"></i>
+            </div>
+        </div>
+
+        <!-- CODE VIEWER – DYNAMIC: fetches the REAL index page -->
+        <div class="code-area" id="codeViewer">
+            <pre><code class="language-html" id="codeContent">
+                <span style="color: #7d8590;">// Fetching your live birthday page from GitHub...</span>
+            </code></pre>
+        </div>
+
+        <!-- RUN BUTTON – opens https://symoh05.github.io/fayee/ -->
+        <div class="run-section">
+            <button class="run-button" id="launchBirthdayButton">
+                <i class="fas fa-play"></i>
+                Run fayee.github.io
+                <i class="fas fa-sparkles" style="color: #ffd700;"></i>
+            </button>
+            <div class="run-hint">
+                <span><i class="fa-regular fa-eye"></i> click to open the real birthday page — https://symoh05.github.io/fayee/</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRISM JS for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script>
+        (function() {
+            "use strict";
+            
+            // ----- CONFIG: your LIVE birthday page -----
+            const LIVE_URL = "https://symoh05.github.io/fayee/";
+            const GITHUB_RAW = "https://symoh05.github.io/fayee/";  // same, but we'll fetch HTML
+            
+            // ----- DOM elements -----
+            const codeEl = document.getElementById('codeContent');
+            const codeViewer = document.getElementById('codeViewer');
+            const runBtn = document.getElementById('launchBirthdayButton');
+            const copyBtn = document.getElementById('copyUrlBtn');
+            const sourceIndicator = document.getElementById('sourceIndicator');
+
+            // ----- 1. FETCH THE REAL INDEX PAGE (no embedded copy) -----
+            async function fetchLiveIndex() {
+                // show loading state
+                codeEl.innerHTML = `<span style="color: #7d8590;">⏳ Fetching from ${LIVE_URL} ...</span>`;
+                
+                try {
+                    // We fetch the HTML from the live GitHub Pages URL
+                    const response = await fetch(LIVE_URL, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Accept': 'text/html,application/xhtml+xml,application/xml'
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    
+                    const html = await response.text();
+                    
+                    // clean the HTML slightly: remove zero-width chars, but preserve everything
+                    const cleanHtml = html.trim();
+                    
+                    // escape for Prism – we need to insert raw HTML as text content
+                    // to avoid rendering, we set textContent so Prism highlights it.
+                    codeEl.textContent = cleanHtml;
+                    
+                    // force Prism to re-highlight
+                    if (typeof Prism !== 'undefined') {
+                        Prism.highlightElement(codeEl);
+                    }
+                    
+                    sourceIndicator.innerHTML = '✓ live · symoh05.github.io/fayee/';
+                    
+                } catch (error) {
+                    console.error('Fetch failed:', error);
+                    codeEl.innerHTML = `
+<span style="color: #f97583;">⚠️ Could not fetch live index.html from GitHub Pages.</span>
+<span style="color: #b1bac4;">Reason: ${error.message}</span>
+
+<span style="color: #79c0ff;">But don't worry — the birthday page is live and ready!</span>
+<span style="color: #b1bac4;">👉 Click the RUN button below to open it.</span>
+
+<span style="color: #7d8590;">----------------------------------------</span>
+<span style="color: #ffd7a0;">📌 Live URL: ${LIVE_URL}</span>
+<span style="color: #7d8590;">The editor is reading directly from your GitHub repository.</span>
+<span style="color: #7d8590;">No local copy — pure live fetch.</span>
+                    `;
+                    // still show prism highlighting for the error message
+                    if (typeof Prism !== 'undefined') {
+                        Prism.highlightElement(codeEl);
+                    }
+                    sourceIndicator.innerHTML = '⚠️ fetch failed · but RUN works';
+                }
+            }
+
+            // ----- 2. RUN BUTTON: opens the real birthday page -----
+            runBtn.addEventListener('click', function() {
+                window.open(LIVE_URL, '_blank');
+            });
+
+            // ----- 3. copy URL button -----
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(LIVE_URL).then(() => {
+                        const originalTitle = copyBtn.title;
+                        copyBtn.title = 'copied!';
+                        copyBtn.style.color = '#ffd700';
+                        setTimeout(() => {
+                            copyBtn.title = 'copy url';
+                            copyBtn.style.color = '';
+                        }, 1500);
+                    });
+                });
+            }
+
+            // ----- 4. INITIAL FETCH -----
+            fetchLiveIndex();
+
+            // ----- 5. Auto-refresh? no, but we add a little reload hint (optional) -----
+            // you could manually refresh by rerunning the function, but we keep it simple.
+            // For now, just one fetch on load.
+            
+            // ----- 6. syntax highlight fallback if Prism is slow -----
+            if (typeof Prism !== 'undefined') {
+                setTimeout(() => {
+                    Prism.highlightAll();
+                }, 500);
+            }
+        })();
+    </script>
+</body>
+</html>
