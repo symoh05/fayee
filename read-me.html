@@ -16,7 +16,8 @@
         }
 
         html, body {
-            touch-action: pan-y pinch-zoom; /* allows zoom only via pinch, but we'll override */
+            height: 100%;
+            width: 100%;
         }
 
         body {
@@ -28,9 +29,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* prevent page zoom on mobile */
-            touch-action: pan-y;  /* only vertical scroll, no pinch-zoom */
+            justify-content: flex-start;
+            /* Page scrolling works, no page zoom */
+            touch-action: pan-y;  
             overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .editor-container {
@@ -41,6 +44,8 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px #2d3a4a;
             overflow: hidden;
             border: 1px solid #3e4a5a;
+            display: flex;
+            flex-direction: column;
         }
 
         .editor-header {
@@ -51,6 +56,7 @@
             gap: 12px;
             border-bottom: 1px solid #2d3a4a;
             flex-wrap: wrap;
+            flex-shrink: 0;
         }
 
         .file-badge {
@@ -98,20 +104,37 @@
             color: #6e7681;
         }
 
-        /* CODE AREA — ZOOMABLE */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 1.8rem;
+            background: #0a0c10;
+            color: #8b949e;
+            border-bottom: 1px solid #2d3a4a;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* CODE AREA — ZOOMABLE & SCROLLABLE */
         .code-area {
             background: #0d1117;
             padding: 1.8rem 1.5rem;
             overflow-x: auto;
-            overflow-y: auto;
-            max-height: 70vh;
-            border-bottom: 1px solid #2d3a4a;
+            overflow-y: scroll;  /* force scrollbar, always scrollable */
+            max-height: 65vh;
+            min-height: 300px;
             font-size: 0.9rem;
             line-height: 1.5;
-            /* allow zooming inside code area */
+            /* allow zooming and scrolling inside code area */
             touch-action: pan-x pan-y pinch-zoom;
-            zoom: 1; /* standard */
-            -moz-transform: scale(1); /* Firefox */
+            flex: 1 1 auto;
         }
 
         pre[class*="language-"] {
@@ -143,15 +166,19 @@
             background: #3e5a7a;
             border-radius: 10px;
         }
+        .code-area::-webkit-scrollbar-thumb:hover {
+            background: #5a7a9a;
+        }
 
-        /* SIMPLE RUN SECTION — just a small button */
+        /* RUN SECTION — small button at bottom */
         .run-section {
             background: #0d1117;
-            padding: 1.2rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: flex-end;
             align-items: center;
             border-top: 1px solid #2d3a4a;
+            flex-shrink: 0;
         }
 
         .run-button {
@@ -188,23 +215,6 @@
             color: white;
         }
 
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.6rem 1.8rem;
-            background: #0a0c10;
-            color: #8b949e;
-            border-bottom: 1px solid #2d3a4a;
-            font-size: 0.8rem;
-        }
-
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         .loading {
             display: inline-block;
             width: 14px;
@@ -224,13 +234,14 @@
             .editor-header { padding: 0.8rem 1rem; }
             .file-badge { padding: 4px 14px; }
             .tab { padding: 4px 14px; }
+            .code-area { max-height: 60vh; padding: 1.2rem; }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="editor-container">
-        <!-- EDITOR HEADER – clean, no live preview text -->
+        <!-- EDITOR HEADER -->
         <div class="editor-header">
             <div class="file-badge">
                 <i class="fa-regular fa-file-code"></i>
@@ -249,7 +260,7 @@
             </div>
         </div>
 
-        <!-- STATUS BAR – minimal, just shows source -->
+        <!-- STATUS BAR – minimal -->
         <div class="status-bar">
             <div class="status-item">
                 <i class="fa-regular fa-circle-check" style="color: #7ee787;"></i>
@@ -260,14 +271,14 @@
             </div>
         </div>
 
-        <!-- CODE VIEWER – ZOOMABLE, fetches REAL index page -->
+        <!-- CODE VIEWER – ZOOMABLE + SCROLLABLE -->
         <div class="code-area" id="codeViewer">
             <pre><code class="language-html" id="codeContent">
                 <span style="color: #7d8590;">// Fetching your birthday page from GitHub...</span>
             </code></pre>
         </div>
 
-        <!-- SIMPLE RUN BUTTON – small, at the bottom right -->
+        <!-- RUN BUTTON – small, clean -->
         <div class="run-section">
             <button class="run-button" id="launchBirthdayButton">
                 <i class="fas fa-play"></i>
@@ -293,8 +304,9 @@
             const codeEl = document.getElementById('codeContent');
             const runBtn = document.getElementById('launchBirthdayButton');
             const copyBtn = document.getElementById('copyUrlBtn');
+            const codeArea = document.getElementById('codeViewer');
 
-            // ----- 1. FETCH THE REAL INDEX PAGE (no embedded copy) -----
+            // ----- 1. FETCH THE REAL INDEX PAGE -----
             async function fetchLiveIndex() {
                 codeEl.innerHTML = `<span style="color: #7d8590;">⏳ fetching from symoh05.github.io/fayee/ ...</span>`;
                 
@@ -350,15 +362,46 @@
             fetchLiveIndex();
             
             // ----- 5. ensure Prism highlighting after dynamic content -----
-            setTimeout(() => { if (typeof Prism !== 'undefined') Prism.highlightAll(); }, 600);
+            setTimeout(() => { 
+                if (typeof Prism !== 'undefined') Prism.highlightAll(); 
+            }, 600);
+
+            // ----- 6. Ensure scrolling works properly -----
+            // Force code area to be scrollable if content overflows
+            if (codeArea) {
+                // Small delay to check content height
+                setTimeout(() => {
+                    if (codeArea.scrollHeight > codeArea.clientHeight) {
+                        // already scrollable
+                    }
+                }, 800);
+            }
         })();
     </script>
 
-    <!-- prevent page zoom on touch devices -->
+    <!-- Prevent page zoom, but allow code area zoom -->
     <script>
-        document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+        document.addEventListener('gesturestart', function(e) { 
+            e.preventDefault(); 
+        });
+        
+        // Allow zoom ONLY inside code-area
+        document.querySelector('.code-area').addEventListener('gesturestart', function(e) {
+            e.stopPropagation();  // Don't let it bubble to body
+        });
+        
         document.addEventListener('touchmove', function(e) {
-            if (e.scale && e.scale !== 1) e.preventDefault();
+            // Only prevent if target is not inside code-area and it's a pinch gesture
+            if (!e.target.closest('.code-area') && e.scale && e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Also prevent double-tap zoom on page
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1 && !e.target.closest('.code-area')) {
+                e.preventDefault();
+            }
         }, { passive: false });
     </script>
 </body>
