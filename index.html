@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +27,6 @@
             position: relative;
         }
         
-        /* Premium Background — soft feminine energy */
         .premium-bg {
             position: fixed;
             top: 0;
@@ -65,7 +63,6 @@
             50% { opacity: 0.45; }
         }
         
-        /* Music Gatekeeper Modal — with Fayee's vibe */
         .music-gatekeeper {
             position: fixed;
             top: 0;
@@ -207,7 +204,6 @@
             100% { transform: translateY(-10px); }
         }
         
-        /* Main Content */
         .main-content {
             display: none;
             opacity: 0;
@@ -219,7 +215,6 @@
             opacity: 1;
         }
         
-        /* Hero Section — dedicated to Fayee */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -303,7 +298,6 @@
             50% { transform: translateY(-20px) rotate(180deg); }
         }
         
-        /* Gallery — radiant Faith */
         .gallery-section {
             padding: 80px 20px;
             position: relative;
@@ -443,7 +437,6 @@
             border-color: #ffd700;
         }
         
-        /* Surprise boxes — each holds a piece of my heart for Fayee */
         .surprise-section {
             padding: 80px 20px;
             position: relative;
@@ -547,7 +540,6 @@
             color: #f5f5f5;
         }
         
-        /* MODAL — perfectly responsive, Fayee's messages */
         .premium-modal-overlay {
             position: fixed;
             top: 0;
@@ -669,7 +661,6 @@
             transform: rotate(90deg);
         }
         
-        /* Love Messages — Faith you are the reason */
         .love-section {
             padding: 80px 20px;
             position: relative;
@@ -745,7 +736,6 @@
             50% { transform: scale(1.2); }
         }
         
-        /* Wishes — 20th birthday special */
         .wishes-section {
             padding: 100px 20px;
             text-align: center;
@@ -924,7 +914,6 @@
         <div class="progress-bar" id="progressBar"></div>
     </div>
     
-    <!-- Music Gatekeeper — Fayee's special melody -->
     <div class="music-gatekeeper" id="musicGatekeeper">
         <div class="gatekeeper-content">
             <div class="gatekeeper-icon">
@@ -945,13 +934,10 @@
     
     <audio id="birthdaySong" loop preload="auto">
         <source src="https://symoh05.github.io/martha/kirorerwa.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
     
-    <!-- MAIN CONTENT — Entirely rewritten for Faith "Fayee" -->
     <div class="main-content" id="mainContent">
         
-        <!-- Hero Section — Fayee, my radiant friend -->
         <section class="hero-section">
             <div class="hero-content">
                 <h1 class="hero-title">Happy 20th, Fayee! 🎂✨</h1>
@@ -962,16 +948,15 @@
                 </div>
                 <p class="hero-subtitle">Faith, you are the most precious soul in my life. Sweet, brilliant, genuine, and beautiful inside out. You're the reason I wake up every day and try to be better — academically, personally, in every way.</p>
                 <p class="hero-subtitle">We've had our ups and downs, and maybe we don't chat like we did back in high school, but your friendship still means the absolute world to me. I will always cherish you.</p>
-                <p class="hero-signature">Always your friend,<br>Your Name Here</p>
+                <p class="hero-signature">Always your friend,<br>Ngugi</p>
             </div>
         </section>
         
-        <!-- Image Gallery — celebrating Fayee's beauty & soul -->
         <section class="gallery-section">
             <h2 class="section-title">My Dearest, Fayee</h2>
             <div class="premium-gallery">
                 <div class="gallery-slide">
-                    <img src="martha1.jpg" alt="Faith Fayee" id="currentImage">
+                    <img src="f1.jpg" alt="Faith Fayee" id="currentImage">
                     <div class="image-caption" id="imageCaption">That genuine smile that lights up every room</div>
                 </div>
                 <div class="gallery-nav">
@@ -992,13 +977,11 @@
             </div>
         </section>
         
-        <!-- Surprise Treasure Boxes — messages for Fayee -->
         <section class="surprise-section">
             <h2 class="section-title">Little Treasures for You</h2>
             <p class="surprise-intro">Fayee, each box holds a piece of what I feel but sometimes don't say. Open them slowly — they're all about you. 💌</p>
             
             <div class="premium-surprise-container">
-                <!-- Box 1: Why you're irreplaceable -->
                 <div class="premium-surprise-box">
                     <div class="premium-present-box" id="premiumPresent1" data-box="1">
                         <div class="premium-front">
@@ -1014,7 +997,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Box 2: our bond, even now -->
                 <div class="premium-surprise-box">
                     <div class="premium-present-box" id="premiumPresent2" data-box="2">
                         <div class="premium-front">
@@ -1030,7 +1012,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Box 3: birthday wishes + that little crush confession -->
                 <div class="premium-surprise-box">
                     <div class="premium-present-box" id="premiumPresent3" data-box="3">
                         <div class="premium-front">
@@ -1049,20 +1030,16 @@
             </div>
         </section>
         
-        <!-- Premium Modal — fully responsive, messages of love & admiration -->
         <div class="premium-modal-overlay" id="premiumModalOverlay">
             <div class="premium-modal-content">
                 <button class="close-premium-modal" id="closePremiumModal">&times;</button>
                 <div class="premium-modal-header">
                     <h2 id="premiumModalTitle" class="premium-modal-title">Your Special Message</h2>
                 </div>
-                <div class="premium-modal-body" id="premiumModalBody">
-                    <!-- filled dynamically -->
-                </div>
+                <div class="premium-modal-body" id="premiumModalBody"></div>
             </div>
         </div>
         
-        <!-- Love Letters — to Faith -->
         <section class="love-section">
             <h2 class="section-title">Letters to My Fayee</h2>
             <div class="premium-love-messages">
@@ -1090,7 +1067,6 @@
             </div>
         </section>
         
-        <!-- Birthday Wishes — 20th! -->
         <section class="wishes-section">
             <h2 class="section-title">Twenty & Tremendous</h2>
             <div class="premium-cake-container">
@@ -1123,9 +1099,6 @@
 
     <script>
         (function() {
-            "use strict";
-            
-            // MUSIC GATEKEEPER + main reveal
             const musicGatekeeper = document.getElementById('musicGatekeeper');
             const musicGateBtn = document.getElementById('musicGateBtn');
             const mainContent = document.getElementById('mainContent');
@@ -1141,13 +1114,11 @@
             birthdaySong.controls = false;
             birthdaySong.style.display = 'none';
             
-            // Wake lock attempt
             async function requestWakeLock() {
                 try { if ('wakeLock' in navigator) await navigator.wakeLock.request('screen'); } catch(e) {}
             }
             
-            // IMAGE CAROUSEL — using same placeholder but captions for Fayee
-            const images = ['f1.jpg', 'f2.jpg', 'f3.jpg', 'f1.jpg', 'f2.jpg']; // keep as is for demo
+            const images = ['f1.jpg', 'f2.jpg', 'f3.jpg', 'f1.jpg', 'f2.jpg'];
             const captions = [
                 "That genuine smile that lights up every room",
                 "Your laugh — still my favorite sound",
@@ -1207,14 +1178,12 @@
                 autoSlideEnabled ? startAutoSlide() : stopAutoSlide();
             }
             
-            // event listeners
             if (prevImageBtn) prevImageBtn.addEventListener('click', function() { prevImage(); if (autoSlideEnabled) { stopAutoSlide(); startAutoSlide(); } });
             if (nextImageBtn) nextImageBtn.addEventListener('click', function() { nextImage(); if (autoSlideEnabled) { stopAutoSlide(); startAutoSlide(); } });
             if (autoSlideToggle) autoSlideToggle.addEventListener('click', toggleAutoSlide);
             
             updateImage();
             
-            // Swipe
             if (currentImage) {
                 let touchStartX = 0, touchEndX = 0;
                 currentImage.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; if (autoSlideEnabled) stopAutoSlide(); });
@@ -1226,7 +1195,6 @@
                 });
             }
             
-            // Music button click
             if (musicGateBtn) {
                 musicGateBtn.addEventListener('click', function() {
                     if (!musicStarted) {
@@ -1249,7 +1217,6 @@
                 });
             }
             
-            // progress bar
             function updateProgressBar() {
                 window.addEventListener('scroll', function() {
                     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -1258,7 +1225,6 @@
                 });
             }
             
-            // SURPRISE BOXES — personalized for Fayee
             const premiumPresents = document.querySelectorAll('.premium-present-box');
             const premiumModalOverlay = document.getElementById('premiumModalOverlay');
             const closePremiumModal = document.getElementById('closePremiumModal');
@@ -1314,7 +1280,6 @@
             if (closePremiumModal) closePremiumModal.addEventListener('click', closePremiumModalFunction);
             if (premiumModalOverlay) premiumModalOverlay.addEventListener('click', (e) => { if (e.target === premiumModalOverlay) closePremiumModalFunction(); });
             
-            // confetti & sounds
             function createPremiumConfetti(element) {
                 const rect = element.getBoundingClientRect();
                 const colors = ['#ffb6c1', '#ffd700', '#ffa07a', '#ffcc99', '#ffe4e1'];
@@ -1371,14 +1336,12 @@
                 } catch(e) {}
             }
             
-            // scroll animations
             const loveNotes = document.querySelectorAll('.premium-love-note');
             function checkScroll() {
                 loveNotes.forEach(note => { if (note.getBoundingClientRect().top < window.innerHeight * 0.85) note.classList.add('visible'); });
             }
             window.addEventListener('scroll', checkScroll); window.addEventListener('load', checkScroll);
             
-            // floating hearts
             function startFloatingHearts() {
                 setInterval(() => {
                     const heart = document.createElement('div');
@@ -1393,13 +1356,10 @@
                 }, 1800);
             }
             
-            // preserve background music
             document.addEventListener('visibilitychange', function() {
                 if (!document.hidden && isPlaying) birthdaySong.play().catch(()=>{});
             });
             document.addEventListener('keydown', (e) => { if (e.code === 'Space' || e.code.includes('Media')) e.preventDefault(); });
-            
-            console.log("🎀 Happy 20th Birthday Fayee! Made with all my heart.");
         })();
     </script>
 </body>
